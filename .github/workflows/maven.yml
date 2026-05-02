@@ -1,0 +1,35 @@
+name: Automated Code Review
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  checkstyle:
+    name: Checkstyle & Test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      # Chạy Unit Test trước
+      - name: Run Tests
+        run: mvn test
+
+      # Tích hợp Checkstyle để phản hồi trực tiếp (Inline Feedback)
+      - name: Checkstyle Review
+        uses: dbelyaev/action-checkstyle@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          level: warning # Hoặc error nếu muốn bắt buộc sửa
+          reporter: github-pr-review # Đẩy comment trực tiếp vào dòng code lỗi
