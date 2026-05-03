@@ -1,0 +1,2 @@
+[ERROR] The goal you specified requires a project to execute but there is no POM in this directory (/home/runner/work/shipping-app/shipping-app). Please verify you invoked Maven from the correct directory.
+=>Do trong file yaml,k co actions/checkout.Runner của gh actions khởi tạo máy ảo trống,k checkout cde sẽ k đc tải về =>k tìm thấy file pom
